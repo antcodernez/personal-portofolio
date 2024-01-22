@@ -8,12 +8,12 @@ const Navbar = () => {
         </NavLink>
         <nav className='flex text-lg gap-7 font-medium'>
             <NavLink to="/about" className={({isActive}) => {
-                return isActive ? "text-blue-500" : "text-black"
+                return isActive ? "text-blue-500" : "text-cyan-500"
             }}>
                 About
             </NavLink>
             <NavLink to="/proyects" className={({isActive}) => {
-                return isActive ? "text-blue-500" : "text-black"
+                return isActive ? "text-blue-500" : "text-cyan-500"
             }}>
                 Proyects
             </NavLink>
