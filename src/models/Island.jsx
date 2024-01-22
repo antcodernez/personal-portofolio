@@ -13,7 +13,7 @@ import { useFrame, useThree } from "@react-three/fiber"; //Esta biblioteca se ut
 import { a } from "@react-spring/three";
 import islandScene from "../assets/3d/island.glb";
 
-const Island = ({isRotating, setIsRotating, ...props}) => {
+const Island = ({isRotating, setIsRotating, setCurrentStage,...props}) => {
   const islandRef = useRef();
     //La función useRef() es un Hook en React que te permite crear una referencia a un valor que no se necesita para renderizar. Aquí te dejo algunos detalles sobre su utilidad:
 
@@ -91,6 +91,7 @@ const Island = ({isRotating, setIsRotating, ...props}) => {
           setIsRotating(true);
         } 
         islandRef.current.rotation.y -= 0.01 * Math.PI; 
+        // islandRef.current.rotation.y += rotationSpeed.current;
       }
   }
 
