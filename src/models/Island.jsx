@@ -53,7 +53,7 @@ const Island = ({isRotating, setIsRotating, ...props}) => {
 
     
   }
-  
+
   const handlePointerMove = e => {
     e.stopPropagation();
     e.preventDefault(); 
@@ -108,6 +108,8 @@ const Island = ({isRotating, setIsRotating, ...props}) => {
           {
             rotationSpeed.current = 0;
           }   
+        
+        islandRef.current.rotation.y += rotationSpeed.current;
       }
     else
       {
