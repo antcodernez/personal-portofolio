@@ -13,7 +13,7 @@ import { useFrame, useThree } from "@react-three/fiber"; //Esta biblioteca se ut
 import { a } from "@react-spring/three";
 import islandScene from "../assets/3d/island.glb";
 
-const Island = ({isRotating, setIsRotating,...props}) => {
+const Island = ({isRotating, setIsRotating, ...props}) => {
   const islandRef = useRef();
     //La función useRef() es un Hook en React que te permite crear una referencia a un valor que no se necesita para renderizar. Aquí te dejo algunos detalles sobre su utilidad:
 
@@ -34,7 +34,7 @@ const Island = ({isRotating, setIsRotating,...props}) => {
   
   const lastX = useRef(0);
   const rotationSpeed = useRef(0);
-  const dumpingFactor = 0.95; //Esta linea me permite que cuando haga el scroll que tan rapido esta se mueva
+  const dampingFactor = 0.95; //Esta linea me permite que cuando haga el scroll que tan rapido esta se mueva
 
   const handlePointerDown = e => {
     e.stopPropagation(); // Este método se utiliza para detener la propagación del evento a través del árbol de eventos. 
@@ -51,23 +51,28 @@ const Island = ({isRotating, setIsRotating,...props}) => {
     e.preventDefault(); 
     setIsRotating(false);
 
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-
-    const delta = (clientX - lastX.current) / viewport.width; // Calcula el cambio en la posición horizontal (delta) en función del ancho de la ventana de visualización (viewport.width).
-
-    islandRef.current.rotation.y += delta * 0.01 * Math.PI;  // Actualiza la rotación en el eje Y del objeto referenciado por 'islandRef'.
-
-    lastX.current = clientX;  // Actualiza la última posición registrada en lastX.current.
-
-    rotationSpeed.current = delta * 0.01 * Math.PI; // Actualiza la velocidad de rotación registrada en rotationSpeed.current.
+    
   }
+  
   const handlePointerMove = e => {
     e.stopPropagation();
     e.preventDefault(); 
 
     if(isRotating)
-      {
-        handlePointerUp(e)
+      {   
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+
+        const delta = (clientX - lastX.current) / viewport.width; // Calcula el cambio en la posición horizontal (delta) en función del ancho de la ventana de visualización (viewport.width).
+    
+        islandRef.current.rotation.y += delta * 0.01 * Math.PI;  // Actualiza la rotación en el eje Y del objeto referenciado por 'islandRef'.
+    
+        lastX.current = clientX;  // Actualiza la última posición registrada en lastX.current.
+    
+        rotationSpeed.current = delta * 0.01 * Math.PI; // Actualiza la velocidad de rotación registrada en rotationSpeed.current.
+
+
+
+
       }
   }
   
@@ -95,22 +100,67 @@ const Island = ({isRotating, setIsRotating,...props}) => {
         setIsRotating(false);
       }
   }
+  useFrame(() => {
+    if(!isRotating)
+      {
+        rotationSpeed.current *= dampingFactor;
+        if(Math.abs(rotationSpeed.current) < 0.001)
+          {
+            rotationSpeed.current = 0;
+          }   
+      }
+    else
+      {
+        const rotation = islandRef.current.rotation.y;
+
+        const normalizedRotation =
+        ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+
+        switch (true) {
+          case normalizedRotation >= 5.45 && normalizedRotation <= 5.85:
+            setCurrentStage(4);
+            break;
+          case normalizedRotation >= 0.85 && normalizedRotation <= 1.3:
+            setCurrentStage(3);
+            break;
+          case normalizedRotation >= 2.4 && normalizedRotation <= 2.6:
+            setCurrentStage(2);
+            break;
+          case normalizedRotation >= 4.25 && normalizedRotation <= 4.75:
+            setCurrentStage(1);
+            break;
+          default:
+            setCurrentStage(null);
+        }
+      }
+  }); //Este hook permite ejecutar una función en cada cuadro de animación (frame) de la escena 3D. 
 
   useEffect(() => {
-    document.addEventListener("pointerdown", handlePointerDown);
-    document.addEventListener("pointerup", handlePointerUp);
-    document.addEventListener("pointermove", handlePointerMove);
-    document.addEventListener("keyup", handleKeyUp);
-    document.addEventListener("keydown",handleKeyDown);
-
+    // Add event listeners for pointer, keyboard and touch events
+    const canvas = gl.domElement;
+    canvas.addEventListener("pointerdown", handlePointerDown);
+    canvas.addEventListener("pointerup", handlePointerUp);
+    canvas.addEventListener("pointermove", handlePointerMove);
+    canvas.addEventListener("touchstart", handlePointerDown);
+    canvas.addEventListener("touchmove", handlePointerMove);
+    canvas.addEventListener("touchend", handlePointerUp);
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+  
+    // Remove event listeners
     return () => {
-      document.removeEventListener("pointerdown", handlePointerDown);
-      document.removeEventListener("pointerup", handlePointerUp);
-      document.removeEventListener("pointermove", handlePointerMove);
-      document.removeEventListener("keyup", handleKeyUp);
-      document.removeEventListener("keydown",handleKeyDown);
-    }
-  }, [gl, handlePointerDown, handlePointerUp, handlePointerMove])
+      canvas.removeEventListener("pointerdown", handlePointerDown);
+      canvas.removeEventListener("pointerup", handlePointerUp);
+      canvas.removeEventListener("pointermove", handlePointerMove);
+      canvas.removeEventListener("touchstart", handlePointerDown);
+      canvas.removeEventListener("touchmove", handlePointerMove);
+      canvas.removeEventListener("touchend", handlePointerUp);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [gl, handlePointerDown, handlePointerUp, handlePointerMove]);
+
+
   return (
     <a.group ref={islandRef} {...props}>
       <mesh
