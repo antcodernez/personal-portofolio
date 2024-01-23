@@ -6,6 +6,7 @@ import { Island } from "../models/Island";
 import { Sky } from "../models/Sky";
 import { Bird } from "../models/Bird";
 import { Plane } from "../models/Plane";
+import {HomeInfo} from "../components/HomeInfo";
 
 const Home = () => {
 
@@ -15,7 +16,7 @@ const Home = () => {
   const adjustIslandForScreenSize = () => {
     let screenScale = null;
     let screenPosition = [-1, -1.7, -18];
-    let rotation = [0.1, 0, 0];
+    let rotation = [0.1, 12, 0];
 
     if(window.innerWidth < 768)
       {
@@ -49,9 +50,14 @@ const Home = () => {
 
   }
   const [islandScale, islandPosition, islandRotation] = adjustIslandForScreenSize();
-  const [planeScale, planePosition] = adjustPlaneForScreenSize()
+  const [planeScale, planePosition] = adjustPlaneForScreenSize();
   return (
     <section className='w-full h-screen relative'> 
+      
+      <div className="absolute top-24 left-0 right-0 z-10 flex items-center justify-center text-white">
+        {currentStage && <HomeInfo currentStage={currentStage}/>}
+      </div>
+
       <Canvas 
         className={`w-fill h-screen bg-transparent ${isRotating ? 'cursor-grabbing' : "cursor-grab"}`}
         camera={{near:0.1, far: 1000}}
