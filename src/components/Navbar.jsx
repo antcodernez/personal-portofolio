@@ -34,12 +34,15 @@ const Navbar = () => {
             }}>
                 About
             </NavLink>
-            <NavLink to="/proyects" className={({isActive}) => {
+            <NavLink 
+              to="/projects" 
+              className={({isActive}) => {
                 return isActive ? "text-blue-500" : "text-cyan-500"
             }}>
-                Proyects
+                Projects
             </NavLink>
-            <NavLink to="/blog" className={({isActive}) => {
+            <NavLink 
+              to="/blog" className={({isActive}) => {
                 return isActive ? "text-blue-500" : "text-cyan-500"
             }}>
                 Blog
