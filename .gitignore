@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 *.env
 /src/assets/3d/turtle.glb
+src/assets/3d/blackhole.glb
+src/models/Blackhole.jsx
