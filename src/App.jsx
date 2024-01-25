@@ -1,7 +1,7 @@
 import {Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import { Navbar } from "./components/Navbar";
-import { About, Home, Proyects, Blog , NotFound} from "./pages"
+import { About, Home, Proyects, Blog , NotFound, Contact} from "./pages"
 const App = () => {
   return (
     <main className="bg-slate-300/20">
@@ -9,9 +9,8 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/about" element={<About/>}/>
+          <Route path="/about" element={<Contact/>}/>
           <Route path="/projects" element={<Proyects/>}/>
-          <Route path="/contact" element={<About/>}/>
           <Route path="/blog" element={<Blog/>}/>
           <Route path="/*" element={<NotFound/>}/>
         </Routes>

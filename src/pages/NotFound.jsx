@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const NotFound = () => {
   return (
-    <div className="conten">
+    <div className="conten bg-not-found">
             <div className="conten__img">
                 <img src={img} alt="ovni" />
                 <p className="conten__number">
@@ -16,7 +16,7 @@ const NotFound = () => {
                     UPSSSS!!!! Something went wrong page not found
                 </p>
             <Link to="/">
-                <a className='conten__error bg-cyan-500 py-3 px-5 rounded-lg'>Back Home</a>
+                <span className='conten__error bg-cyan-500 py-3 px-5 rounded-lg'>Back Home</span>
             </Link>
             </div>
     </div>
