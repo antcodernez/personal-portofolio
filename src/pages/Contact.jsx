@@ -1,8 +1,9 @@
 import React, { useState, useRef  } from 'react'
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
 
-  const [form, setForm] = useState({name: "", email: "", message: ""});
+  const [form, setForm] = useState( {name: "", email: "", message: ""} );
 
   const formRef = useRef(null);
   
@@ -10,7 +11,8 @@ const Contact = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name] : e.target.value })
-  }
+  };
+
   const handleFocus = () => {
 
   }
@@ -19,9 +21,30 @@ const Contact = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefualt();
+    e.preventDefault(); // Corregir la escritura aquí
     setIsLoading(true);
-  };
+
+    emailjs.send(
+        "service_79reoxi",
+        "template_0a3k0gc",
+        {
+          from_name: form.name, 
+          to_name: "Jesús A",
+          from_email: form.email,
+          message: form.message
+        },
+        "9LBINTDpKsK6YP0xj"
+      ).then(() => {
+        setIsLoading(false);
+        
+        setForm({name: "", email: "", message: ""});
+
+      }).catch(err => {
+        setIsLoading(false);
+        console.log(err);
+      })
+};
+
 
   return (
     <section className='relative flex lg:flex-row flex-col max-container'>
@@ -38,7 +61,7 @@ const Contact = () => {
               type='text'
               name='name'
               className='input'
-              placeholder='Antonio'
+              placeholder='Name'
               required
               value={form.name}
               onChange={handleChange}
