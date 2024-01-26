@@ -7,6 +7,7 @@ import { Loader } from '../components/Loader';
 const Contact = () => {
 
   const [form, setForm] = useState( {name: "", email: "", message: ""} );
+  const[currentAnimation, setCurrentAnimation] = useState("idle");
 
   const formRef = useRef(null);
   
@@ -17,16 +18,16 @@ const Contact = () => {
   };
 
   const handleFocus = () => {
-
+    setCurrentAnimation("walk");
   }
   const handleBlur = () => {
-
+    setCurrentAnimation("idle");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Corregir la escritura aquí
     setIsLoading(true);
-
+    setCurrentAnimation("hit");
     emailjs.send(
         "service_79reoxi",
         "template_0a3k0gc",
@@ -40,10 +41,15 @@ const Contact = () => {
       ).then(() => {
         setIsLoading(false);
         
-        setForm({name: "", email: "", message: ""});
+        setTimeout(() => {
+          setCurrentAnimation("idle");
+          setForm({name: "", email: "", message: ""});
+
+        }, 1500);
 
       }).catch(err => {
         setIsLoading(false);
+        setCurrentAnimation("idle");
         console.log(err);
       })
 };
@@ -126,11 +132,15 @@ const Contact = () => {
           intensity={2.5}
           position={[0, 0, 1]}
         />
+        <ambientLight 
+          intensity={0.4}
+        />
         <Suspense fallback={<Loader />}>
           <Fox 
             position={[0.5, 0.35, 0]}
-            rotation={[12, 0, 0]}
+            rotation={[12.6, -0.6, 0]}
             scale={[0.5, 0.5, 0.5]}
+            currentAnimation={currentAnimation}
           />  
         </Suspense>
         </Canvas>
