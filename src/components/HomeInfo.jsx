@@ -19,7 +19,7 @@ const renderContent = {
     2: (
         <InfoBox
             text="Explore my journey. Let's connect and create something amazing together! 🌟"
-            link="/about"
+            link="/contact"
             btnText="Connect with me"        
         />
     ),
