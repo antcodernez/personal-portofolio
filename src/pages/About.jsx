@@ -1,5 +1,8 @@
 import React from 'react'
-import { skills } from '../constans';
+import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
+
+import { skills, experiences } from '../constans';
 
 const About = () => {
   return (
@@ -10,7 +13,7 @@ const About = () => {
       </h1>
       <div className='mt-5 flex flex-col gap-3 text-slate-500'>
         <p>
-        My journey in web development began with a passion for creativity and technology. Over time, I honed my skills in creating engaging and functional web experiences that stand out in an ever-evolving digital world.
+        My journey in web development began with a passion for creativity and technology. Over time, I honed my skills in creating engaging and functional web experiencess that stand out in an ever-evolving digital world.
         </p>
       </div>
       <div className='py-10 flex flex-col'>
@@ -32,11 +35,58 @@ const About = () => {
       </div>
 
       <div className='py-16'>
-          <h3 className='subhead-text'>Work Experience</h3>
+          <h3 className='subhead-text'>Work experiences</h3>
           <div 
             className='mt-5 flex flex-col gap-3 text-slate-500'
           >
             <p>Debrayador profesional</p>
+          </div>
+          <div className='mt-12 flex'>
+            <VerticalTimeline>
+              {experiences.map((experience) => (
+                <VerticalTimelineElement
+                  key={experience.company_name}
+                  date={experience.date}
+                  icon={<div className='flex justify-center items-center w-full h-full'>
+                    <img 
+                      src={experience.icon}
+                      alt={experience.company_name}
+                      className='w-[60%] h-[60%] object-contain'
+                    />
+                  </div>}
+                  contentStyle={{
+                    borderBottom: "8px",
+                    borderStyle: "solid",
+                    borderBottomColor: experience.iconBg,
+                    boxShadow: "none"
+                  }}
+                  iconStyle={{
+                    background: experience.iconBg
+                  }}
+                >
+                  <div className='text-black text-xl font-poppins font-semibold'>
+                    <h3>{experience.title}</h3>
+                    <p 
+                      className='text-black-500 font-medium font-base'
+                      style={{margin:0}}
+                    >
+                      {experience.company_name}
+                    </p>
+                  </div>
+
+                  <ul className='my-5 list-dic ml-5 space-y-2'>
+                    {experience.points.map((point, index) => (
+                      <li 
+                        className='text-black-500/50 font-normal pl-1 text-sm'
+                        key={`experiences-point-${index}`}
+                      >
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </VerticalTimelineElement>
+              ))}
+            </VerticalTimeline>
           </div>
       </div>
     </section>
