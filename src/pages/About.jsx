@@ -3,6 +3,7 @@ import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timel
 import 'react-vertical-timeline-component/style.min.css';
 
 import { skills, experiences } from '../constans';
+import { CTA } from '../components/CTA';
 
 const About = () => {
   return (
@@ -61,7 +62,7 @@ const About = () => {
                     boxShadow: "none"
                   }}
                   iconStyle={{
-                    background: experience.iconBg
+                    background: experience.iconBg 
                   }}
                 >
                   <div className='text-black text-xl font-poppins font-semibold'>
@@ -89,6 +90,9 @@ const About = () => {
             </VerticalTimeline>
           </div>
       </div>
+
+      <hr className="border-slate-200"/>
+      <CTA />
     </section>
   )
 }
