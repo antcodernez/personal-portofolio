@@ -30,20 +30,20 @@ const Navbar = () => {
 
         <nav className={`flex gap-7 font-medium ${textClass}`}>
             <NavLink to="/about" className={({isActive}) => {
-                return isActive ? "text-blue-500" : "text-cyan-500"
+                return isActive ? "text-blue-500" : "text-purple-600"
             }}>
                 About
             </NavLink>
             <NavLink 
               to="/projects" 
               className={({isActive}) => {
-                return isActive ? "text-blue-500" : "text-cyan-500"
+                return isActive ? "text-blue-500" : "text-purple-600"
             }}>
                 Projects
             </NavLink>
             <NavLink 
               to="/blog" className={({isActive}) => {
-                return isActive ? "text-blue-500" : "text-cyan-500"
+                return isActive ? "text-blue-500" : "text-purple-600"
             }}>
                 Blog
             </NavLink>

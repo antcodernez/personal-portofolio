@@ -2,6 +2,8 @@ import React, { useState, useRef, Suspense  } from 'react'
 import emailjs from "@emailjs/browser";
 import { Canvas } from '@react-three/fiber';
 import { Fox } from '../models/Fox';
+// import { Blackhole } from "../models/Blackhole";
+import { Blackhole } from '../models/Blackhole';
 import { Loader } from '../components/Loader';
 import {useAlert} from "../hooks/useAlert";
 import { Alert } from '../components/Alert';
@@ -150,6 +152,11 @@ const Contact = () => {
             scale={[0.5, 0.5, 0.5]}
             currentAnimation={currentAnimation}
           />  
+
+          {/* <Blackhole 
+            position={[-0.1, 2, -1.5]}
+            scale={[1, 1, 1]}
+          /> */}
         </Suspense>
         </Canvas>
       </div>
