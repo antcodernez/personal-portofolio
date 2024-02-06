@@ -1,9 +1,10 @@
 import React from 'react'
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-
 import { skills, experiences } from '../constans';
 import { CTA } from '../components/CTA';
+import "boxicons";
+
 
 const About = () => {
   return (
@@ -34,7 +35,7 @@ const About = () => {
           ))}
         </div>
       </div>
-
+      <box-icon type='logo' name='css3' color="#c300ff "></box-icon>
       <div className='py-16'>
           <h3 className='subhead-text'>Work experiences</h3>
           <div 
