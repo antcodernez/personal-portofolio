@@ -35,14 +35,13 @@ const About = () => {
           ))}
         </div>
       </div>
-      <box-icon type='logo' name='css3' color="#c300ff "></box-icon>
       <div className='py-16'>
-          <h3 className='subhead-text'>Work experiences</h3>
-          <div 
+          <h3 className='subhead-text'>Certifications</h3>
+          {/* <div 
             className='mt-5 flex flex-col gap-3 text-slate-500'
           >
             <p>Debrayador profesional</p>
-          </div>
+          </div> */}
           <div className='mt-12 flex'>
             <VerticalTimeline>
               {experiences.map((experience) => (
