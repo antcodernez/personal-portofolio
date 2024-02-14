@@ -11,8 +11,6 @@ import {
     javascript,
     linkedin,
     mongodb,
-    motion,
-    mui,
     nextjs,
     nodejs,
     pricewise,
@@ -25,6 +23,7 @@ import {
     threads,
     typescript
 } from "../assets/icons";
+
 
 export const skills = [
     {
@@ -216,3 +215,9 @@ export const projects = [
         link: 'https://github.com/adrianhajdin/project_ai_summarizer',
     }
 ];
+
+export const certifications = [
+    {
+        imageUrl: "gitgithub"
+    }
+]

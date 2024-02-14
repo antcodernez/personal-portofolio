@@ -1,7 +1,7 @@
 import React from "react";
 import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
 import { Link } from "react-router-dom";
-import {experiences } from "../constans";
+import {experiences, certifications } from "../constans";
 import { arrow } from "../assets/icons";
 import { CTA } from "../components/CTA";
 
